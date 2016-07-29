@@ -1,6 +1,8 @@
+
 $("#start").click(function(){
 	console.log("timer");
 	countdown.timer();
+  Game.startGame();
 	});
     
    
@@ -29,8 +31,31 @@ timer: function(){
 };
 
 
+var questions = [
 
-// closes onload function }
+  {
+    question: "1. Who is the current UCF president?",
+    //answers: "Blake Bortles", "John Hitt", "Scott Frost", "Daniel Tosh",
+    correct: [1],
+  },
+
+]
+
+var Game = {
+  startGame: function(){
+    for (var i = 0; i < questions.length; i++){
+
+    var div = $("<q1>");
+    div.html(questions[i].question);
+    div.attr("question", i);
+    $("#game").append(div);
+    }
+
+  },
+};
+
+
+
 
 /* May or may not need this simple timer: 
 var windowTimeout = setTimeout(sixtySeconds, 1000 * 60)
@@ -43,13 +68,6 @@ function sixtySeconds() {
 
     
 
-/* var questions = [
-{
-    question: "What is UCF's current mascot?"
-    answer1: "Warriors", "Pirates", "Lions", "Knights"
-    correct: "3",
-},
 
-] */ 
 
 
