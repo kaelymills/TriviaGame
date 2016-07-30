@@ -7,14 +7,14 @@ $("#start").click(function(){
 var countdown = {
 
 timer: function(){
-  var counter = 60;
+  var counter = 30;
   setInterval(function() {
     counter--;
     if (counter >= 0) {
       span = document.getElementById("counter");
       span.innerHTML = counter;
     }
-    // Display 'counter' wherever you want to display it.
+    
     if (counter === 0) {
         alert('Game over!');
         clearInterval(counter);
@@ -25,76 +25,125 @@ timer: function(){
 
 
 
-$.fn.every = function(callback) {
-  var numElements = this.length;
-  return this.filter(callback).length == numElements;
+var allQuestions = [{
+    question: "Who is UCF's President?",
+    choices: ["Blake Bortles", "John C. Hitt", "Scott Frost"],
+    correctAnswer: 1
+  },
+
+  {
+    question: "What was UCF's first mascot?",
+    choices: ["Citronaut", "Knightro", "Sir Wins-a-lot", "Puff the Magic Dragon"],
+    correctAnswer: 0
+  },
+
+  {
+    question: "What was UCF first called?",
+    choices: ["University of Central Florida", "Orlando University", "Florida Technological University", "Florida Institute of Technology"],
+    correctAnswer: 2
+  },
+
+  {
+    question: "What is the name of the UCF tradition that was named Best Campus Tradition nationally?",
+    choices: ["Spirit Splash", "Tailgate UCF", "Skit Knight", "Comedy Knight"],
+    correctAnswer: 0
+  },
+
+  {
+    question: "What is the name of UCF's first first-round NFL draft pick?",
+    choices: ["JJ Worton", "Russel Wilson", "Blake Bortles", "Daunte Caulpepper"],
+    correctAnswer: 3
+  },
+
+  {
+    question: "What is myth of the Pegusus in the UCF Student Union?",
+    choices: ["No one has ever stepped on it", "If you step on it, you won't graduate ", "If you step on it, you will become a pegasus ", "There is no myth"],
+    correctAnswer: 1
+  },
+
+  {
+    question: "Which of the following celebrities is a UCF alumni?",
+    choices: ["Mila Kunis", "Daniel Tosh", "Jimmy Fallon", "All of the above"],
+    correctAnswer: 1
+  },
+
+  {
+    question: "What year was UCF founded?",
+    choices: ["1950", "1988", "1979", "1963"],
+    correctAnswer: 3
+  },
+
+  {
+    question: "In UCF's first-eve bowl game win, what SEC team did they beat?",
+    choices: ["Florida Gators", "Georgia Bulldogs", "LSU Tigers", "Mississippi State Bulldogs"],
+    correctAnswer: 1
+  },
+
+  {
+    question: "How many students were enrolled at UCF in the fall of 2015?",
+    choices: ["30,000+", "40,000+", "50,000+", "60,000+"],
+    correctAnswer: 3
+  }
+];
+var currentquestion = 0;
+var correctAnswers = 0;
+
+function setupOptions() {
+  $('#question').html(parseInt(currentquestion) + 1 + ". " + allQuestions[currentquestion].question);
+  var options = allQuestions[currentquestion].choices;
+  var formHtml = '';
+  for (var i = 0; i < options.length; i++) {
+    formHtml += '<div><input type="radio" name="option" value="' + i + '" id="option' + i + '"><label for="option' + i + '">' +
+      allQuestions[currentquestion].choices[i] + '</label></div><br/>';
+  }
+  $('#form').html(formHtml);
+  $("#option0").prop('checked', true);
 };
 
-$.fn.simpleQuiz = function(options) {
-  if(!this.length) { return; };
-  
-  this.each(function() {
-    var form = $(this);
-    var submitButton = form.find(':submit');
-    var questions = form.find('.question');
-    var choices = form.find(':radio');
+function checkAns() {
+  if ($("input[name=option]:checked").val() == allQuestions[currentquestion].correctAnswer) {
+    correctAnswers++;
+  };
+};
 
-    var init = function() {
-      choices.on('change', answerChanged);
-      form.on('submit', answersSubmitted);
+$(document).ready(function() {
 
-      answerChanged();
-    };
-
-    var answersSubmitted = function(event) {
-      if(!hasPassed()) {
-        event.preventDefault();
-        alert('Please try again.');
-      }
-    };
-
-    var score = function() {
-      return form.find(':checked[data-correct]').length;
-    };
-
-    var hasPassed = function() {
-      return score() == questions.length;
-    };
-
-    var hasCheckedElement = function() {
-      return $(this).has(':checked').length;
-    };
-
-    var allQuestionsAnswered = function() {
-      return questions.every(hasCheckedElement);
-    };
-
-    var answerChanged = function() {
-      if(allQuestionsAnswered()) {
-        submitButton.removeAttr('disabled');
-      } else {
-        submitButton.attr('disabled', 'disabled');
-      }
-    };
-
-    init();
+  $(".jumbotron").hide();
+  $('#start').click(function() {
+    $(".jumbotron").fadeIn();
+    $(this).hide();
   });
 
-};
+  $(function() {
+    $("#progressbar").progressbar({
+      max: allQuestions.length - 1,
+      value: 0
+    });
+  });
 
+  setupOptions();
 
+  $("#next").click(function() {
+    event.preventDefault();
+    checkAns();
+    currentquestion++;
+    $(function() {
+      $("#progressbar").progressbar({
+        value: currentquestion
+      });
+    });
+    if (currentquestion < allQuestions.length) {
+      setupOptions();
+      if (currentquestion == allQuestions.length - 1) {
+        $('#next').html("Submit");
+        $('#next').click(function() {
+          $(".jumbotron").hide();
+          $("#result").html("You correctly answered " + correctAnswers + " out of " + currentquestion + " questions! ").hide();
+          $("#result").fadeIn(1500);
+        });
 
+      };
 
-
-
-/* May or may not need this simple timer: 
-var windowTimeout = setTimeout(sixtySeconds, 1000 * 60)
-
-function sixtySeconds() {
-            console.log("Time's up!");
-            alert("Time's Up!"); 
-        }; */ 
-            
-
-
-
+    };
+  });
+});
