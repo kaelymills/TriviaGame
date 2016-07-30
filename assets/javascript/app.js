@@ -7,7 +7,7 @@ $("#start").click(function(){
 var countdown = {
 
 timer: function(){
-  var counter = 30;
+  var counter = 60;
   setInterval(function() {
     counter--;
     if (counter >= 0) {
