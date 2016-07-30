@@ -1,17 +1,13 @@
-
 $("#start").click(function(){
-	console.log("timer");
-	countdown.timer();
-  Game.startGame();
-	});
+  console.log("timer");
+  countdown.timer();
+  });
     
-   
-/* window.onload = function(){ */ 
+
 var countdown = {
 
 timer: function(){
   var counter = 60;
-
   setInterval(function() {
     counter--;
     if (counter >= 0) {
@@ -23,36 +19,70 @@ timer: function(){
         alert('Game over!');
         clearInterval(counter);
     }
+  }, 1000);
+  },
+};
 
- 	}, 1000);
 
-	},
+
+$.fn.every = function(callback) {
+  var numElements = this.length;
+  return this.filter(callback).length == numElements;
+};
+
+$.fn.simpleQuiz = function(options) {
+  if(!this.length) { return; };
+  
+  this.each(function() {
+    var form = $(this);
+    var submitButton = form.find(':submit');
+    var questions = form.find('.question');
+    var choices = form.find(':radio');
+
+    var init = function() {
+      choices.on('change', answerChanged);
+      form.on('submit', answersSubmitted);
+
+      answerChanged();
+    };
+
+    var answersSubmitted = function(event) {
+      if(!hasPassed()) {
+        event.preventDefault();
+        alert('Please try again.');
+      }
+    };
+
+    var score = function() {
+      return form.find(':checked[data-correct]').length;
+    };
+
+    var hasPassed = function() {
+      return score() == questions.length;
+    };
+
+    var hasCheckedElement = function() {
+      return $(this).has(':checked').length;
+    };
+
+    var allQuestionsAnswered = function() {
+      return questions.every(hasCheckedElement);
+    };
+
+    var answerChanged = function() {
+      if(allQuestionsAnswered()) {
+        submitButton.removeAttr('disabled');
+      } else {
+        submitButton.attr('disabled', 'disabled');
+      }
+    };
+
+    init();
+  });
 
 };
 
 
-var questions = [
-
-  {
-    question: "1. Who is the current UCF president?",
-    //answers: "Blake Bortles", "John Hitt", "Scott Frost", "Daniel Tosh",
-    correct: [1],
-  },
-
-]
-
-var Game = {
-  startGame: function(){
-    for (var i = 0; i < questions.length; i++){
-
-    var div = $("<q1>");
-    div.html(questions[i].question);
-    div.attr("question", i);
-    $("#game").append(div);
-    }
-
-  },
-};
 
 
 
@@ -65,9 +95,6 @@ function sixtySeconds() {
             alert("Time's Up!"); 
         }; */ 
             
-
-    
-
 
 
 

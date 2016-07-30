@@ -1,29 +1,89 @@
 <!DOCTYPE html>
+  <!DOCTYPE html>
 <html>
-<head>
-	<title>UCF Knights Trivia</title>
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <title>UCF Trivia Game</title>
+  </head>
+  <body>
 
-<h1> How much do you know about UCF? </h1>
-<p> You have 60 seconds to answer the following questions. Good luck! </p>
+  <h1> UCF Trivia Game </h1>
+  	<p1> Find out how much you know about UCF by taking this quiz! You have 60 seconds to complete all 10 questions. </p1>
 
-<div id="buttons">
-	<button id="start">Start Game</button>
-</div>
+  	<div id="buttons">
+		<button id="start"> Start Game </button>
+	</div>
+	<div id="counter"> </div>
 
-<div id="counter"> </div>
+    <form action="/success-page" class="simple-quiz">
+      <h3>1. Who is UCF's President? </h3>
+      
+      	<label>
+        	<input type="radio" name="answers[1]" value="A">
+       		Blake Bortles
+      	</label>
+      
+     	 <label>
+        	<input type="radio" name="answers[1]" value="B" data-correct>
+        	John C. Hitt 
+      	</label>
 
-<div id="game"> </div>
+      	<label>
+        	<input type="radio" name="answers[1]" value="C">
+        		Scott Frost
+      	</label>
 
-<form id = q1> </form>
+      	<label>
+        	<input type="radio" name="answers[1]" value="D">
+        	George O'Leary
+      	</label>
 
+     <h3>2. What was UCF's first mascot?</h3>
+      
+      	<label>
+        	<input type="radio" name="answers[2]" value="A">
+        	Knightro
+      	</label>
+      
+      	<label>
+        	<input type="radio" name="answers[2]" value="B" data-correct>
+        	Citronaut
+      	</label>
 
+      	<label>
+        	<input type="radio" name="answers[2]" value="C">
+        	Sir Wins-a-lot
+      	</label>
 
+       	<label>
+        	<input type="radio" name="answers[2]" value="C">
+        	Puff the Magic Dragon
+      	</label>
 
+    <h3>3. What was UCF first called?</h3>
+      
+      <label>
+        <input type="radio" name="answers[2]" value="A">
+        University of Central Florida
+      </label>
+      
+      <label>
+        <input type="radio" name="answers[2]" value="B">
+        Orlando University
+      </label>
 
-	
-	<div id = "Game"> </div>
+      <label>
+        <input type="radio" name="answers[2]" value="C" data-correct>
+        Florida Technological University
+      </label>
+
+       <label>
+        <input type="radio" name="answers[2]" value="C">
+        Florida Institute of Technology
+      </label>
+
+      <br><input type="submit">
+    <form>
 
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 <script src="assets/javascript/app.js"></script>
