@@ -1,0 +1,21 @@
+*{
+
+	box-sizing: border-box;
+}
+
+#header {
+	background-image: url(https://brand.ucf.edu/files/2011/08/Knightro-Spirit-Splash-Timeline.jpg); 
+	background-size: cover;
+	color: white;
+	min-height: 350px;
+}
+
+#h {
+	margin-top: 50px;
+	
+}
+
+#intro {
+	
+	float: left;
+}
