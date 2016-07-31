@@ -108,18 +108,18 @@ function checkAns() {
 
 $(document).ready(function() {
 
-  $(".jumbotron").hide();
+  $("#jumbotron").hide();
   $('#start').click(function() {
     $(".jumbotron").fadeIn();
     $(this).hide();
   });
 
-  $(function() {
+/*$(function() {
     $("#progressbar").progressbar({
       max: allQuestions.length - 1,
       value: 0
     });
-  });
+  }); */
 
   setupOptions();
 
