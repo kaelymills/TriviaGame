@@ -19,6 +19,7 @@ timer: function(){
         alert('Game over!');
         clearInterval(counter);
     }
+
   }, 1000);
   },
 };

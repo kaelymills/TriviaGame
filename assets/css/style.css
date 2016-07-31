@@ -12,10 +12,19 @@
 
 #h {
 	margin-top: 50px;
-	
+
 }
 
 #intro {
 	
 	float: left;
+}
+
+#counter {
+	font-size: 40px;
+	margin-left: 20px;
+}
+
+#start {
+	margin-left: 20px;
 }
